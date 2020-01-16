@@ -10,10 +10,6 @@ namespace WholesaleBase
     {
         static void Main(string[] args)
         {
-            string[] mas = new string[32];
-
-
-
             while (true)
             {
                 if (Items.Count > 0) Console.WriteLine("Товаров введено: {0}.", Items.Count);
