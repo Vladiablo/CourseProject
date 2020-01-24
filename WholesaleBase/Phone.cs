@@ -17,10 +17,7 @@ namespace WholesaleBase
             this.phone = number;
         }
 
-        public string RawString()
-        {
-            return this.phone.ToString();
-        }
+        public string RawString { get => this.phone.ToString(); }
 
         public override string ToString()
         {

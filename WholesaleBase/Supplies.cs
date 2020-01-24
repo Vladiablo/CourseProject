@@ -9,6 +9,7 @@ namespace WholesaleBase
     public static class Supplies
     {
         private static List<Supply> supplies = new List<Supply>();
+        private static SaveManager supplySaver = new SaveManager("supplies.txt");
 
         public static List<Supply> GetSupplies
         { get { return supplies; } }
@@ -19,6 +20,23 @@ namespace WholesaleBase
         public static void AddSupply(Supply supply)
         {
             supplies.Add(supply);
+        }
+
+        public static void SaveSupplies()
+        {
+            supplySaver.CreateFile();
+            foreach (Supply supply in supplies)
+                supplySaver.WriteObject(supply);
+        }
+
+        public static void LoadSupplies()
+        {
+            Clear();
+            LoadManager supplyLoader = new LoadManager("supplies.txt");
+            supplyLoader.BeginRead();
+            while (supplyLoader.IsLoading)
+                supplies.Add(supplyLoader.Read(new Supply.Loader()) as Supply);
+            supplyLoader.EndRead();
         }
 
         public static void Clear()

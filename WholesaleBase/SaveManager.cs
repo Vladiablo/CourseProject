@@ -25,6 +25,13 @@ namespace WholesaleBase
             file = new FileInfo(filename);
         }
 
+        public void CreateFile()
+        {
+            if (file.Exists) file.Delete();
+            FileStream fileStream = file.Create();
+            fileStream.Close();
+        }
+
         public void WriteLine(string line)
         {
             var output = file.AppendText();

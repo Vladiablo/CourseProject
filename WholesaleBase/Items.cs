@@ -38,6 +38,7 @@ namespace WholesaleBase
 
         public static void SaveItems()
         {
+            itemSaver.CreateFile();
             foreach (Item item in items)
                 itemSaver.WriteObject(item);
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WholesaleBase
 {
-    public class Supply
+    public class Supply : IReadableObject, IWritableObject
     {
         private string supplyTerm;
         private uint supplyItemCount;
@@ -36,6 +36,33 @@ namespace WholesaleBase
             this.supplyCost = cost;
             this.supplyItem = item;
             this.supplyProvider = provider;
+        }
+
+        private Supply(ILoadManager man)
+        {
+            this.supplyTerm = man.ReadLine().Split(':')[1];
+            uint.TryParse(man.ReadLine().Split(':')[1], out this.supplyItemCount);
+            float.TryParse(man.ReadLine().Split(':')[1], out this.supplyCost);
+            Items.FindItemByName(man.ReadLine().Split(':')[1], out this.supplyItem);
+            Providers.FindProviderByName(man.ReadLine().Split(':')[1], out this.supplyProvider);
+        }
+
+        public void Write(ISaveManager man)
+        {
+            man.WriteLine($"supplyTerm:{this.supplyTerm}");
+            man.WriteLine($"supplyItemCount:{this.supplyItemCount}");
+            man.WriteLine($"supplyCost:{this.supplyCost}");
+            man.WriteLine($"supplyItem:{this.supplyItem.Name}");
+            man.WriteLine($"supplyProvider:{this.supplyProvider.Name}");
+        }
+
+        public class Loader : IReadableObjectLoader
+        {
+            public Loader() { }
+            public IReadableObject Load(ILoadManager man)
+            {
+                return new Supply(man);
+            }
         }
     }
 }

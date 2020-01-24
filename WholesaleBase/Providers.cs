@@ -9,6 +9,7 @@ namespace WholesaleBase
     public static class Providers
     {
         private static List<Provider> providers = new List<Provider>();
+        private static SaveManager providerSaver = new SaveManager("providers.txt");
 
         public static List<Provider> GetProviders
         { get { return providers; } }
@@ -33,6 +34,23 @@ namespace WholesaleBase
             }
             provider = new Provider();
             return false;
+        }
+
+        public static void SaveProviders()
+        {
+            providerSaver.CreateFile();
+            foreach (Provider provider in providers)
+                providerSaver.WriteObject(provider);
+        }
+
+        public static void LoadProviders()
+        {
+            Clear();
+            LoadManager providerLoader = new LoadManager("providers.txt");
+            providerLoader.BeginRead();
+            while (providerLoader.IsLoading)
+                providers.Add(providerLoader.Read(new Provider.Loader()) as Provider);
+            providerLoader.EndRead();
         }
 
         public static void Clear()

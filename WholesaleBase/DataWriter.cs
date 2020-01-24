@@ -238,7 +238,7 @@ namespace WholesaleBase
                 sw.WriteLine("ПОСТАВЩИК");
                 sw.WriteLine(Providers.GetProviders[i].Name);
                 sw.WriteLine(Providers.GetProviders[i].Address);
-                sw.WriteLine(Providers.GetProviders[i].Phone.RawString());
+                sw.WriteLine(Providers.GetProviders[i].Phone.RawString);
                 sw.WriteLine(Providers.GetProviders[i].ContactFaceName);
                 sw.WriteLine();
             }

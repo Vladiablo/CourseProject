@@ -21,13 +21,13 @@ namespace WholesaleBase
                 
                 Console.WriteLine("Доступные команды: ");
                 Console.WriteLine("\"ввод\" товар/поставщик/поставка - ввод указанных данных через консоль, \"импорт\" - импорт данных из файла;");
+                Console.WriteLine("\"load\" - load data");
                 if (Supplies.Count > 0 || Providers.Count > 0 || Items.Count > 0)
                 {
                     Console.WriteLine("\"сохранить\" - сохранение данных в тестовом формате (.txt);");
                     Console.WriteLine("\"экспорт\" - экспорт данных в таблицу Open XML (MS Excel .xlsx);");
                     Console.WriteLine("\"очистить товар/поставщик/поставки/все\" - очистить выбранный список;");
-                    Console.WriteLine("\"save\" - save items");
-                    Console.WriteLine("\"load\" - load items");
+                    Console.WriteLine("\"save\" - save data"); 
                 }
                 Console.Write("\"выход\" - выход из программы.");
                 Console.WriteLine();
@@ -94,7 +94,7 @@ namespace WholesaleBase
                             }
                             break;
                         }
-                    case "IMPORT":
+                    case "ИМПОРТ":
                         {
                             while (true)
                             {
@@ -106,14 +106,14 @@ namespace WholesaleBase
                                         Console.WriteLine("Для возврата напишите \"отмена\".");
                                         Console.WriteLine("Имя файла: ");
                                         fileName = Console.ReadLine();
-                                        if (fileName.ToUpper() == "ОТМЕНА" || fileName.ToUpper() == "CANCEl") break;
+                                        if (fileName.ToUpper() == "ОТМЕНА" || fileName.ToUpper() == "CANCEL") break;
                                     }
-                                    else if(command[1].Length == 0 || command[1].StartsWith(" "))
+                                    else if (command[1].Length == 0 || command[1].StartsWith(" "))
                                     {
                                         Console.WriteLine("Для возврата напишите \"отмена\".");
                                         Console.WriteLine("Имя файла: ");
                                         fileName = Console.ReadLine();
-                                        if (fileName.ToUpper() == "ОТМЕНА" || fileName.ToUpper() == "CANCEl") break;
+                                        if (fileName.ToUpper() == "ОТМЕНА" || fileName.ToUpper() == "CANCEL") break;
                                     }
                                     else fileName = command[1];
                                     uint items, providers, supplies;
@@ -136,13 +136,18 @@ namespace WholesaleBase
 
                     case "SAVE":
                         {
+                            if (Items.Count == 0 && Providers.Count == 0 && Supplies.Count == 0) break;
                             Items.SaveItems();
+                            Providers.SaveProviders();
+                            Supplies.SaveSupplies();
                             break;
                         }
 
                     case "LOAD":
                         {
                             Items.LoadItems();
+                            Providers.LoadProviders();
+                            Supplies.LoadSupplies();
                             break;
                         }
 

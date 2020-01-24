@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WholesaleBase
 {
-    public class Provider
+    public class Provider : IReadableObject, IWritableObject
     {
         private string providerName;
         private string providerAddress;
@@ -34,5 +34,40 @@ namespace WholesaleBase
         }
 
         public Provider() { }
+
+        private Provider(ILoadManager man)
+        {
+            this.providerName = man.ReadLine().Split(':')[1];
+            this.providerAddress = man.ReadLine().Split(':')[1];
+            ulong phone;
+            ulong.TryParse(man.ReadLine().Split(':')[1], out phone);
+            try 
+            {
+                this.providerPhone = new Phone(phone);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"Ошибка: {e.Message}");
+            }
+            this.contactFaceName = man.ReadLine().Split(':')[1];
+
+        }
+
+        public void Write(ISaveManager man)
+        {
+            man.WriteLine($"providerName:{this.providerName}");
+            man.WriteLine($"providerAddress:{this.providerAddress}");
+            man.WriteLine($"providerPhone:{this.providerPhone.RawString}");
+            man.WriteLine($"contactFaceName:{this.contactFaceName}");
+        }
+
+        public class Loader : IReadableObjectLoader
+        {
+            public Loader() { }
+            public IReadableObject Load(ILoadManager man)
+            {
+                return new Provider(man);
+            }
+        }
     }
 }
