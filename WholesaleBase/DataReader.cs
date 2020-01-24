@@ -52,7 +52,7 @@ namespace WholesaleBase
             {
                 switch(reader.ReadLine().ToUpper())
                 {
-                    case "ТОВАР":
+                    case "ITEM":
                         {
                             string itemName = reader.ReadLine();
                             if (itemName.StartsWith("\n") || itemName.StartsWith(" ") || itemName.Length == 0)
