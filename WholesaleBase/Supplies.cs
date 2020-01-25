@@ -35,7 +35,7 @@ namespace WholesaleBase
             LoadManager supplyLoader = new LoadManager("supplies.txt");
             supplyLoader.BeginRead();
             while (supplyLoader.IsLoading)
-                supplies.Add(supplyLoader.Read(new Supply.Loader()) as Supply);
+                supplies.Add(supplyLoader.Read(new Supply.Loader()));
             supplyLoader.EndRead();
         }
 

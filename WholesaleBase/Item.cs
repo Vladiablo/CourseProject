@@ -59,10 +59,10 @@ namespace WholesaleBase
             man.WriteLine($"itemDescription:{this.itemDescription}");
         }
 
-        public class Loader : IReadableObjectLoader
+        public class Loader : IReadableObjectLoader<Item>
         {
             public Loader() { }
-            public IReadableObject Load(ILoadManager man)
+            public Item Load(ILoadManager man)
             {
                 return new Item(man);
             }

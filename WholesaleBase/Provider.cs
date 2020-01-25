@@ -61,10 +61,10 @@ namespace WholesaleBase
             man.WriteLine($"contactFaceName:{this.contactFaceName}");
         }
 
-        public class Loader : IReadableObjectLoader
+        public class Loader : IReadableObjectLoader<Provider>
         {
             public Loader() { }
-            public IReadableObject Load(ILoadManager man)
+            public Provider Load(ILoadManager man)
             {
                 return new Provider(man);
             }

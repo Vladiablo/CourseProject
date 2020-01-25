@@ -10,16 +10,17 @@ namespace WholesaleBase
     public interface ILoadManager
     {
         string ReadLine();
-        IReadableObject Read(IReadableObjectLoader loader);
+        T Read<T>(IReadableObjectLoader<T> loader) where T : IReadableObject;
     }
 
     public interface IReadableObject
     { }
 
-    public interface IReadableObjectLoader
+    public interface IReadableObjectLoader<T> where T : IReadableObject
     {
-        IReadableObject Load(ILoadManager man);
+        T Load(ILoadManager man);
     }
+
     class LoadManager : ILoadManager
     {
         FileInfo file;
@@ -30,7 +31,7 @@ namespace WholesaleBase
             input = null;
         }
 
-        public IReadableObject Read(IReadableObjectLoader loader)
+        public T Read<T>(IReadableObjectLoader<T> loader) where T : IReadableObject
         {
             return loader.Load(this);
         }

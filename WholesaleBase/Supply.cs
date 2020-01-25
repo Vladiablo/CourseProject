@@ -56,10 +56,10 @@ namespace WholesaleBase
             man.WriteLine($"supplyProvider:{this.supplyProvider.Name}");
         }
 
-        public class Loader : IReadableObjectLoader
+        public class Loader : IReadableObjectLoader<Supply>
         {
             public Loader() { }
-            public IReadableObject Load(ILoadManager man)
+            public Supply Load(ILoadManager man)
             {
                 return new Supply(man);
             }

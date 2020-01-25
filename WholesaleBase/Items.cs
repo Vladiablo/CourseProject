@@ -49,7 +49,7 @@ namespace WholesaleBase
             LoadManager itemLoader = new LoadManager("items.txt");
             itemLoader.BeginRead();
             while (itemLoader.IsLoading)
-                items.Add(itemLoader.Read(new Item.Loader()) as Item);
+                items.Add(itemLoader.Read(new Item.Loader()));
             itemLoader.EndRead();
         }
 

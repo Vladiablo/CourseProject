@@ -49,7 +49,7 @@ namespace WholesaleBase
             LoadManager providerLoader = new LoadManager("providers.txt");
             providerLoader.BeginRead();
             while (providerLoader.IsLoading)
-                providers.Add(providerLoader.Read(new Provider.Loader()) as Provider);
+                providers.Add(providerLoader.Read(new Provider.Loader()));
             providerLoader.EndRead();
         }
 
