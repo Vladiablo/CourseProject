@@ -13,6 +13,8 @@ namespace WholesaleBase
         static void Main(string[] args)
         {
 
+            //TODO: Доделать менеджеры загрузки и сохранения, добавить события для начала загрузки и сохранения и вывод в консоль
+
             while (true)
             {
                 if (Items.Count > 0) Console.WriteLine("Товаров введено: {0}.", Items.Count);

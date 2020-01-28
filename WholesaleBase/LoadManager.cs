@@ -23,17 +23,30 @@ namespace WholesaleBase
 
     class LoadManager : ILoadManager
     {
+        public event EventHandler<IReadableObject> ObjectDidLoad;
+
         FileInfo file;
         StreamReader input;
         public LoadManager(string filename)
         {
             file = new FileInfo(filename);
             input = null;
+            this.ObjectDidLoad += PrintObjectToConsole;
+        }
+
+        private void PrintObjectToConsole(object sender, IReadableObject e)
+        {
+            Console.WriteLine($"Object loaded: {e.ToString()}");
         }
 
         public T Read<T>(IReadableObjectLoader<T> loader) where T : IReadableObject
         {
-            return loader.Load(this);
+            var result = loader.Load(this);
+
+            if (ObjectDidLoad != null)
+                ObjectDidLoad.Invoke(this, result);
+
+            return result;
         }
 
         public void BeginRead()
@@ -62,6 +75,6 @@ namespace WholesaleBase
                 throw new IOException("Load Error");
 
             input.Close();
-        }
+        } 
     }
 }

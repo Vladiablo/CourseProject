@@ -18,11 +18,19 @@ namespace WholesaleBase
     }
     class SaveManager: ISaveManager
     {
+        public event EventHandler<IWritableObject> ObjectDidSave;
+
         FileInfo file;
 
         public SaveManager(string filename)
         {
             file = new FileInfo(filename);
+            ObjectDidSave += PrintObjectToConsole;
+        }
+
+        private void PrintObjectToConsole(object sender, IWritableObject e)
+        {
+            Console.WriteLine($"Object saved: {e.ToString()}");
         }
 
         public void CreateFile()
@@ -42,6 +50,8 @@ namespace WholesaleBase
         public void WriteObject(IWritableObject obj)
         {
             obj.Write(this);
+            if (ObjectDidSave != null)
+                ObjectDidSave.Invoke(this, obj);
         }
     }
 }
