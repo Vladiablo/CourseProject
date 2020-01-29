@@ -8,10 +8,11 @@ namespace WholesaleBase
 {
     class Program
     {
-        public static SaveManager saveManager = new SaveManager("save.txt");
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = new System.Text.UnicodeEncoding();
+            Console.InputEncoding = new System.Text.UnicodeEncoding();
 
             //TODO: Доделать менеджеры загрузки и сохранения, добавить события для начала загрузки и сохранения и вывод в консоль
 
