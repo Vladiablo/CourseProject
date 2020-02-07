@@ -21,9 +21,11 @@ namespace WholesaleBase
         T Load(ILoadManager man);
     }
 
-    class LoadManager : ILoadManager
+    public class LoadManager : ILoadManager
     {
         public event EventHandler<IReadableObject> ObjectDidLoad;
+        public event EventHandler<FileInfo> DidStartLoad;
+        public event EventHandler<FileInfo> DidEndLoad;
 
         FileInfo file;
         StreamReader input;
